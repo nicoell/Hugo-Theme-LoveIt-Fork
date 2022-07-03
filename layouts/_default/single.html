@@ -2,7 +2,18 @@
 
 {{- define "content" -}}
     {{- $params := .Scratch.Get "params" -}}
-    <div class="page single special">
+    {{- $profile := .Site.Params.home.profile -}}
+
+
+
+    <div class="page single special" posts="">
+        {{- /* Profile */ -}}
+        {{- if ne $profile.enable false -}}
+        <div class="home" posts="">
+            {{- partial "home/profile.html" . -}}
+        </div>
+        {{- end -}}
+
         {{- /* Title */ -}}
         <h1 class="single-title animated pulse faster">
             {{- .Title -}}

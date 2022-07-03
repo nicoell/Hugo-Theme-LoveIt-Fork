@@ -53,3 +53,7 @@ body {
 img {
   @include object-fit(contain);
 }
+
+video {
+  @include object-fit(contain);
+}

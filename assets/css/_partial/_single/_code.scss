@@ -22,7 +22,7 @@ pre {
     padding: 0;
   }
 
-  img {
+  img, video {
     min-height: 1em;
     max-height: 1.2em;
     vertical-align: text-bottom;
@@ -48,7 +48,7 @@ code, pre, .highlight table, .highlight tr, .highlight td {
     > table td {
       margin: 0;
       padding: 0;
-      border: none !important;
+      border: none;
       white-space: nowrap;
     }
   }
