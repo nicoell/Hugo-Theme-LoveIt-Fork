@@ -1,0 +1,12 @@
+{{ if not ($.Page.Scratch.Get "pragma-once-functionplot") }}
+  {{ $.Page.Scratch.Set "pragma-once-functionplot" 1 }}
+  <script src="https://unpkg.com/function-plot/dist/function-plot.js"></script>
+{{ end }}
+
+{{ $innerJS := .Inner | safeJS }}
+{{ $target := .Get "target" }}
+
+<span id="{{$target}}" class="graph"></span>
+<script>
+{{$innerJS}}
+</script>

@@ -5,13 +5,8 @@
 {{- define "content" -}}
 
     {{- $params := .Scratch.Get "params" -}}
-    {{- $profile := .Site.Params.home.profile -}}
 
-    <div class="page home" posts="">
-        {{- /* Profile */ -}}
-        {{- if ne $profile.enableInSection false -}}
-            {{- partial "home/profile.html" . -}}
-        {{- end -}}
+    <div class="page home" data-home="posts" posts="">
 
         {{- /* Title */ -}}
         <h2 class="single-title animate__animated animate__pulse animate__faster">

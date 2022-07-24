@@ -2,17 +2,8 @@
 
 {{- define "content" -}}
     {{- $params := .Scratch.Get "params" -}}
-    {{- $profile := .Site.Params.home.profile -}}
 
-
-
-    <div class="page single special" posts="">
-        {{- /* Profile */ -}}
-        {{- if ne $profile.enable false -}}
-        <div class="home" posts="">
-            {{- partial "home/profile.html" . -}}
-        </div>
-        {{- end -}}
+    <div class="page home single special" data-home="posts" posts="">
 
         {{- /* Title */ -}}
         <h1 class="single-title animate__animated animate__pulse animate__faster">
@@ -22,6 +13,17 @@
         {{- /* Subtitle */ -}}
         {{- with $params.subtitle -}}
             <h2 class="single-subtitle">{{ . }}</h2>
+        {{- end -}}
+
+        {{- /* Featured image */ -}}
+        {{- $image := $params.featuredimage -}}
+        {{- with .Resources.GetMatch "featured-image" -}}
+            {{- $image = .RelPermalink -}}
+        {{- end -}}
+        {{- with $image -}}
+            <div class="featured-image">
+                {{- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -}}
+            </div>
         {{- end -}}
 
         {{- /* Content */ -}}

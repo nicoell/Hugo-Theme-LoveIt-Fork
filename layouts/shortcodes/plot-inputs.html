@@ -1,0 +1,29 @@
+{{- $paramset := .Get "paramset" -}}
+
+{{- if (.Get "begin") -}}
+<div id="{{.Get "begin"}}" class="plot-inputs">
+{{- else if (.Get "end") -}}
+</div>
+{{- else -}}
+{{- $id := .Get "id" -}}
+{{- $label := .Get "label" -}}
+{{- $rangenumberjs := 0 -}}
+
+<div>
+<label for="{{- $id -}}">{{- $label | .Page.RenderString -}}</label>
+{{- if eq (.Get "type") "range" -}}
+{{- $rangenumberjs = ";this.nextElementSibling.value=this.value;" -}}
+<input class="input inline" id="{{- $id -}}-number" type="number" {{ with .Get "name" }}
+name="{{ . }}-number" {{ end }} {{ with .Get "value" }} value="{{ . }}" {{ end }} {{ with .Get "step" }} step="{{ . }}" {{
+end }} {{ with .Get "min" }} min="{{ . }}" {{ end }} {{ with .Get "max" }} max="{{ . }}" {{ end }} 
+{{ with .Get "onchange" }} onchange="{{ . | safeJS }}{{ $rangenumberjs | safeJS}}"{{ end }}
+{{ with .Get "oninput" }} oninput="{{ . | safeJS }}" {{ end }}>
+{{- $rangenumberjs = ";this.previousElementSibling.value=this.value;" -}}
+{{- end -}}
+<input id="{{- $id -}}" class="input" type={{ with .Get "type" }} {{ . }} {{ else }} number {{ end }} {{ with .Get "name" }}
+    name="{{ . }}" {{ end }} {{ with .Get "value" }} value="{{ . }}" {{ end }} {{ with .Get "step" }} step="{{ . }}" {{
+    end }} {{ with .Get "min" }} min="{{ . }}" {{ end }} {{ with .Get "max" }} max="{{ . }}" {{ end }} 
+    {{ with .Get "onchange" }} onchange="{{ . | safeJS }}{{ $rangenumberjs | safeJS}}"{{ end }}
+    {{ with .Get "oninput" }} oninput="{{ . | safeJS }}" {{ end }}>
+</div>
+{{- end -}}

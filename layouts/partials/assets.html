@@ -172,6 +172,23 @@
     {{- $config = $cookieconsentConfig | dict "cookieconsent" | merge $config -}}
 {{- end -}}
 
+{{- /* Klaro Cookie Consent */ -}}
+{{- if .Site.Params.klaro | and .Site.Params.klaro.enable -}}
+    {{- $options := dict "targetPath" "lib/klaro/klaro.min.css" "enableSourceMap" true -}}
+    {{- dict "Source" "lib/klaro/klaro.scss" "ToCSS" $options "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/style.html" -}}
+
+    {{- $source := "lib/klaro/klaro-config.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint "Defer" true | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+    
+    <!--{{- $dataconfig := "data-config=\"klaroConfig\"" -}}-->
+    {{- $source := "lib/klaro/klaro.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint "Defer" true | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+
+    {{- $source := "lib/klaro/klaro-setup.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint "Defer" true | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+
+{{- end -}}
+
 {{- range $params.library.css -}}
     {{- dict "Source" . "Fingerprint" $fingerprint | dict "Scratch" $.Scratch "Data" | partial "scratch/style.html" -}}
 {{- end -}}

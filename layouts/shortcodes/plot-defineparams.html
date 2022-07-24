@@ -1,0 +1,7 @@
+{{ $paramset := .Get "paramset" }}
+
+<script>
+var {{$paramset}} = {
+    {{ .Inner | safeJS }}
+}
+</script>

@@ -1,10 +1,23 @@
 {{- if ne .Site.Params.footer.enable false -}}
     <footer class="footer">
         <div class="footer-container">
+
+            <div class="footer-menu">
+            {{- range .Site.Menus.footer -}}
+                {{- $url := .URL | relLangURL -}}
+                {{- with .Page -}}
+                    {{- $url = .RelPermalink -}}
+                {{- end -}}
+                <a class="menu-item" href="{{ $url }}" title="{{ .Title }}"{{ if (urls.Parse $url).Host }} rel="noopener noreffer" target="_blank"{{ end }}>
+                    {{- .Pre | safeHTML }}{{ .Name }}{{ .Post | safeHTML -}}
+                </a>
+            {{- end -}}
+            </div>
+
             {{- /* Custom Content */ -}}
             {{- with .Site.Params.footer.custom -}}
                 <div class="footer-line">
-                    {{- safeHTML . -}}
+                    {{- safeHTML . | emojify -}}
                 </div>
             {{- end -}}
 
